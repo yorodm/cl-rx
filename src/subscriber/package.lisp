@@ -4,5 +4,7 @@
   (:use :cl)
   (:export
    #:subscriber
-   #:subscription)
-  (:import-from :alexandria :with-gensyms))
+   #:make-subscriber
+   #:subscriber-next
+   #:subscriber-completed
+   #:subscriber-error))
