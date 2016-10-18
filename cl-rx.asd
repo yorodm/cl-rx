@@ -18,7 +18,7 @@
   :version "0.1"
   :author "Yoandy Rodriguez Martinez"
   :license "MIT"
-  :depends-on ( :alexandra :bordeaux-threads)
+  :depends-on ( :alexandria :bordeaux-threads)
   :serial t
   :components ((:module "src"
                         :serial t
