@@ -71,3 +71,12 @@ This function is the only safe way to create a subscriber so do not call make-in
 
 (defmethod subscriber-error ((sub subscriber) cond)
   (funcall (on-error sub) cond))
+
+(defmethod subscriber-next ((sub safe-subscriber) item)
+  (funcall (on-next sub) sub item))
+
+(defmethod subscriber-completed ((sub safe-subscriber))
+  (funcall (on-completed sub) sub))
+
+(defmethod subscriber-error ((sub safe-subscriber) cond)
+  (funcall (on-error sub) sub cond))
