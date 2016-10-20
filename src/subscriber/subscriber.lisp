@@ -24,7 +24,7 @@
 (defun safe-subscriber (inner)
   ;; this is basically a state machine
   "Wraps SUB into a safe subscriber. The safe subscriber guarantees that
-SUB behaves acordingly to observable semantics"
+SUB behaves properly"
   (flet ((on-next (sub it)
            (case (state sub)
              (:live (subscriber-next sub it))
