@@ -4,4 +4,13 @@
   ()
   (:documentation "Executes the work immediately in the current thread"))
 
-(defmethod schedule)
+;; Method or function? that is the question
+(defmethod invoke-action ((scheduler immediate-scheduler) action)
+  (funcall action))
+
+(defmethod schedule ((scheduler immediate-scheduler) fn)
+  (invoke-action scheduler fn))
+
+;;maybe this method is not a method but a function?
+(defmethod schedule-recursive ((scheduler immediate-scheduler) fn)
+  (warn "Recursive actions in the immediate scheduler can lead to stack overflows"))
