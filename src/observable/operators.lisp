@@ -12,10 +12,10 @@
   (labels ((from-list (subs) ;; this is the subscribe function
              (labels ((recursive (callback state)
                         (let ((item (pop source)))
-                          (cond ((null item) (progn
-                                               (suscriber-complete subs)
-                                               (funcall callback #'recursive))
-                                 (t (suscriber-next subs item)))))))
+                          (cond ((null item) (suscriber-complete subs)
+                                 (t (progn
+                                      (suscriber-next subs item)
+                                      (funcall callback state))))))))
                (with-current-scheduler (scheduler)
-                 (schedule-recursive #'recursive)))))
+                 (schedule-recursive scheduler #'recursive)))))
     (make-observable #'from-list)))
