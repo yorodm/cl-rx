@@ -10,3 +10,8 @@
 
 (defmethod schedule ((scheduler immediate-scheduler) fn)
   (invoke-action scheduler fn))
+
+(defmethod schedule-relative ((scheduler immediate-scheduler) fn time)
+  (warn "This operation will block the current thread")
+  (sleep time)
+  (schedule scheduler fn))
