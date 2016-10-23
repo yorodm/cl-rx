@@ -10,14 +10,14 @@
     :accessor on-error
     :documentation "Called when the observable finds an error")
    (on-completed
-    :init-arg :on-completed
+    :initarg :on-completed
     :accessor on-completed
     :documentation "Called when the observable finishes processing values"))
   (:documentation "A subscriber"))
 
 (defclass safe-subscriber (subscriber) ;; this is internal
-  ((inner :initarg :inner :accesor inner)
-   (state :initarg :state :accespr state :initform :live))
+  ((inner :initarg :inner :accessor inner)
+   (state :initarg :state :accessor state :initform :live))
   (:documentation "A class to wrap user created subscribers"))
 
 
@@ -45,7 +45,7 @@ SUB behaves properly"
 
 ;; public interface
 
-(defmacro make-subscriber &key on-next on-completed on-error
+(defmacro make-subscriber (&key on-next on-completed on-error)
           "Creates a new subscriber given at least one of it functions. The parameters are:
 ON-NEXT: Notifies the SUBSCRIBER of new events in the OBSERVABLE. Takes the item as parameter.
 ON-ERROR: Notifies the SUBSCRIBER of errors in the OBSERVABLE. Takes the error as parameter.
