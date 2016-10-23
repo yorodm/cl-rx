@@ -23,7 +23,18 @@
   :components ((:module "src"
                         :serial t
                         :components
-                        ((:module "subscriber"
+                        ((:module "util"
+                                  :serial t
+                                  :components((:file "package")
+                                              (:file "macros")
+                                              (:file "queue")))
+                         (:module "scheduler"
+                                  :serial t
+                                  :components((:file "package")
+                                              (:file "base")
+                                              (:file "immediate")
+                                              (:file "trampoline")))
+                         (:module "subscriber"
                                   :serial t
                                   :components ((:file "package")
                                                (:file "subscriber")
@@ -31,17 +42,9 @@
                          (:module "observable"
                                   :serial t
                                   :components((:file "package")
+                                              (:file "observable")
                                               (:file "operators")
-                                              (:file "observable")))
-                         (:module "util"
-                                  :serial t
-                                  :components((:file "package")))
-                         (:module "scheduler"
-                                  :serial t
-                                  :components((:file "package")
-                                              (:file "base")
-                                              (:file "immediate")
-                                              (:file "trampoline")))
+                                              (:file "from")))
                          (:file "package"))))
   :description "Reactive extensions for Common-Lisp"
   :long-description
@@ -57,3 +60,4 @@
           (setf (fill-pointer seq) (read-sequence seq stream))
           seq)))
   :in-order-to ((test-op (test-op cl-rx-test))))
+/
