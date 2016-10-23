@@ -12,3 +12,14 @@
 ;; know if it will be thread safe. Maybe I can set a lot of locks but
 ;; that might have an impact in performance.
 (defmethod observable-from ((source list))
+  (labels ((from-list (subs) ;; this is the subscribe function
+             (flet ((producer() ;; this will be called by the scheduler
+                        (unwind-protect (progn
+                                          (loop for item in source
+                                             do (subscriber-next subs item))
+                                          (subscriber-completed subs))
+                          ;; Call on-error as cleanup
+                          (subscriber-error subs))))
+               (with-current-scheduler (scheduler)
+                 (schedule scheduler #'producer)))))
+    (make-observable #'from-list)))
