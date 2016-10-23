@@ -4,7 +4,7 @@
   ()
   (:documentation "Base class for all schedulers"))
 
-(defparameter *current-scheduler (make-instance 'immediate-scheduler))
+(defvar *current-scheduler* nil "The current scheduler")
 
 (defgeneric schedule (scheduler fn)
   (:documentation "Schedules a new FN to be executed by the SCHEDULER"))
