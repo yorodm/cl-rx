@@ -31,7 +31,7 @@
                          (:module "observable"
                                   :serial t
                                   :components((:file "package")
-                                              (:file "operator")
+                                              (:file "operators")
                                               (:file "observable")))
                          (:module "util"
                                   :serial t
