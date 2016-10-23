@@ -41,8 +41,7 @@
                                   :components((:file "package")
                                               (:file "base")
                                               (:file "immediate")
-                                              (:file "trampoline")
-                                              (:file "scheduler")))
+                                              (:file "trampoline")))
                          (:file "package"))))
   :description "Reactive extensions for Common-Lisp"
   :long-description
