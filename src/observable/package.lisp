@@ -6,6 +6,7 @@
    #:observable
    #:observable-from
    #:observable-subscribe
-   #:observable-create))
+   #:observable-create)
+  (:import-from :cl-rx.scheduler :with-current-scheduler))
 
 (in-package :cl-rx.observable)
