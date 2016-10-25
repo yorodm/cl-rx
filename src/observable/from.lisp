@@ -9,7 +9,7 @@
 (defmethod observable-from ((source list))
   (labels ((from-list (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
-                        (unwind-protect (progn
+                        (unwind-protect (progn ;; maybe handler-case?
                                           (loop for item in source
                                              do (subscriber-next subs item))
                                           (subscriber-completed subs))
