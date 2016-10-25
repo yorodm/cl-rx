@@ -1,4 +1,4 @@
-(in-package :cl-rx.util)
+(in-package :cl-rx.util-internal)
 
 
 (defclass pqueue ()
