@@ -6,7 +6,10 @@
 
   (:export
    ;; Should I export this classes or just constructor functions?
-   #:create-scheduler
    #:*current-scheduler*
+   #:scheduler
+   #:immediate-scheduler
+   #:trampoline-scheduler
    #:schedule
-   #:schedule-recursive))
+   #:schedule-relative
+   #:with-current-scheduler))
