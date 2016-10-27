@@ -2,7 +2,7 @@
 
 (defpackage cl-rx.scheduler
   (:use :cl
-        :cl-rx.util)
+        :cl-rx.util-internal)
   (:export
    #:*current-scheduler*
    #:create-scheduler
