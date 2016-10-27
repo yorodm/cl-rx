@@ -15,7 +15,7 @@
 (defgeneric schedule (scheduler fn)
   (:documentation "Schedules a new FN to be executed by the SCHEDULER"))
 
-(defgeneric schedule-relative (scheduler fn time)
+(defgeneric schedule-relative (scheduler fn delay)
   (:documentation "Schedules a new FN to be executed after TIME seconds"))
 
 (defgeneric time-now (scheduler)
