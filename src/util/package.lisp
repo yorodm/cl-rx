@@ -6,6 +6,7 @@
            #:enqueue
            #:dequeue
            #:top))
+
 (defpackage cl-rx.util
   (:use :cl))
 
