@@ -5,6 +5,8 @@
         :cl-rx.util-internal)
   (:export
    #:*current-scheduler*
+   #:trampoline-scheduler
+   #:immediate-scheduler
    #:create-scheduler
    #:schedule
    #:schedule-relative

@@ -3,9 +3,10 @@
 (defclass trampoline-scheduler (scheduler)
   ((queue :initform nil :accessor queue)
    (lock :initform nil :accessor lock))
-  (:documentation "Queues the work in the current thread"))
+  (:documentation "Queues the work in the/ current thread"))
 
-(defmethod initialize-instance :after ((instance trampoline-scheduler))
+(defmethod initialize-instance :after ((instance trampoline-scheduler)
+                                       &key)
   (setf (lock instance) (bt:make-lock)))
 
 (defmethod time-delta ((sched trampoline-scheduler) seconds)
@@ -34,4 +35,4 @@
               (diff (- (time-now) (item-priority item))))
           (when (> diff 0)
             (sleep (floor diff 1000))) ;; sleep it off
-            (funcall (item-data item))))))
+            (funcall (item-data item)))))
