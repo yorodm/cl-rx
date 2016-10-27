@@ -20,6 +20,19 @@
    (state :initarg :state :accessor state :initform :live))
   (:documentation "A class to wrap user created subscribers"))
 
+(defun noop (&rest others)
+  "Null operation"
+  (values))
+
+;; Need to make sure there are no NILs in a subscriber
+(defmethod initialize-instance :after
+  ((instance subscriber) &key (on-next #'noop) (on-error #'noop)
+                           (on-completed #'noop))
+  (setf (slot-value instance 'on-next) on-next)
+  (setf (slot-value instance 'on-error) on-error)
+  (setf (slot-value instance 'on-completed) on-completed))
+
+
 
 (defun safe-subscriber (inner)
   ;; this is basically a state machine
