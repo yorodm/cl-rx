@@ -41,7 +41,7 @@ SUB behaves properly"
                    :inner inner
                    :on-next #'on-next
                    :on-error #'on-error
-                   :on-complete #'on-complete)))
+                   :on-completed #'on-complete)))
 
 ;; public interface
 
