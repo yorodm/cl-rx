@@ -1,6 +1,5 @@
 (in-package :cl-rx.util-internal)
 
-
 (defclass pqueue ()
   ((elements :initform (make-array 15 :fill-pointer 0 :adjustable t)
              :accessor elements))
@@ -11,13 +10,19 @@
   "Python-like integer division"
   `(truncate ,a ,b))
 
-(defun item-priority (heap i)
+(defun elt-priority (heap i)
   "Returns the priority of the element at position I"
-  (car (elt (elements heap) i)))
+  (item-priority (elt (elements heap) i)))
 
-(defun item-data (heap i)
+(defun elt-data (heap i)
   "Returns the DATA of the element at position I"
-  (cdr (elt (elements heap) i)))
+  (item-data (elt (elements heap) i)))
+
+(defun item-priority (element)
+  (car element))
+
+(defun item-data (element)
+  (cdr element))
 
 (defun size (heap)
   (length (elements heap)))
@@ -52,8 +57,8 @@
   "Fixes priorities after insertion of element at I"
   (let ((par (parent i)))
     (when (and (> i 0 )
-               (< (item-priority heap i)
-                  (item-priority heap par)))
+               (< (elt-priority heap i)
+                  (elt-priority heap par)))
       (swap heap i par)
       (up-heap heap par))))
 
@@ -65,9 +70,9 @@
   (when lft
     (setf smaller lft)
     (when (and rght
-      (< (item-priority heap rght) (item-priority heap lft)))
+      (< (elt-priority heap rght) (elt-priority heap lft)))
            (setf smaller rght))
-    (when (< (item-priority heap smaller) (item-priority heap i))
+    (when (< (elt-priority heap smaller) (elt-priority heap i))
       (swap heap i smaller)
       (down-heap heap smaller)))))
 
@@ -81,7 +86,7 @@
     (swap heap 0 (1- (size heap)))
     (let ((item (vector-pop (elements heap))))
       (down-heap heap 0)
-      (cdr item))))
+      item)))
 
 (defun top (heap)
   "Returns the data of the first element in the queue"
