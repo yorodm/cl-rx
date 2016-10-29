@@ -1,7 +1,7 @@
 (in-package :cl-rx.observable)
 
 (defclass observable ()
-  ((subscribe-fn :initarg :subscribe :initform nil))
+  ((subscribe-fn :initarg :subscribe :initform nil :accessor subscribe-fn))
   (:documentation "The base class for all observables"))
 
 (defgeneric observable-subscribe (observable subscriber)
