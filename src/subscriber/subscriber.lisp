@@ -40,15 +40,15 @@
 SUB behaves properly"
   (flet ((on-next (sub it)
            (case (state sub)
-             (:live (subscriber-next sub it))
+             (:live (subscriber-next (inner sub) it))
              (otherwise (values))))
-         (on-error (cnd)
+         (on-error (sub cnd)
            (case (state sub)
-             (:live (setf (state sub) :error) (subscriber-error sub cnd))
+             (:live (setf (state sub) :error) (subscriber-error (inner sub) cnd))
              (otherwise (values))))
          (on-complete (sub)
            (case (state sub)
-             (:live (setf (state sub) :completed))
+             (:live (setf (state sub) :completed) (subscriber-completed (inner sub)))
              (otherwise (values)))))
     (make-instance 'safe-subscriber
                    :inner inner
