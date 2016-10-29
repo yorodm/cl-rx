@@ -16,6 +16,8 @@
 (defmethod observable-subscribe ((observable observable)
                                  (subscriber function))
   (funcall (subscribe-fn observable) (make-subscriber :on-next subscriber)))
+
+;; these are internal to this package so must not be exported.
 (defun make-observable (fn)
   "Creates an observable that will execute FN when a SUBSCRIBER
  subscribes to it."
