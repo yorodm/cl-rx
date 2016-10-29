@@ -17,7 +17,7 @@
 
 (defclass safe-subscriber (subscriber) ;; this is internal
   ((inner :initarg :inner :accessor inner)
-   (state :initarg :state :accessor state :initform :live))
+   (state :initarg :state :accessor state))
   (:documentation "A class to wrap user created subscribers"))
 
 (defun noop (&rest others)
@@ -57,6 +57,7 @@ SUB behaves properly"
              (:live (setf (state sub) :completed) (subscriber-completed (inner sub)))
              (otherwise (values)))))
     (make-instance 'safe-subscriber
+                   :state :live
                    :inner inner
                    :on-next #'on-next
                    :on-error #'on-error
