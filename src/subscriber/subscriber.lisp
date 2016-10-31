@@ -32,7 +32,7 @@
   (make-load-form-saving-slots self
                                :slot-names '(state inner on-next on-error on-completed)))
 
-(defun safe-subscriber (inner)
+(defun safe-subscriber (wrapped)
   ;; this is basically a state machine
   "Wraps SUB into a safe subscriber. The safe subscriber guarantees that
 SUB behaves properly"
@@ -50,7 +50,7 @@ SUB behaves properly"
              (otherwise (values)))))
     (make-instance 'safe-subscriber
                    :state :live
-                   :inner inner
+                   :inner wrapped
                    :on-next #'on-next
                    :on-error #'on-error
                    :on-completed #'on-complete)))
