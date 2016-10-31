@@ -10,7 +10,7 @@
 ;; Go multi or go home
 (defmethod observable-subscribe ((observable observable)
                                  (subscriber safe-subscriber))
-  (funcall (subscribe-fn observable)  subscriber))
+  (funcall (subscribe-fn observable) subscriber))
 
 ;; So we can call this using only the on-next function
 (defmethod observable-subscribe ((observable observable)

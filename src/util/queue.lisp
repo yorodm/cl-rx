@@ -6,6 +6,7 @@
   (:documentation "A vector based priority queue. Elements must be in the form
 (PRIORITY . ITEM)"))
 
+;; Should I (declaim (inline all the little functions?))
 (defmacro // (a b)
   "Python-like integer division"
   `(truncate ,a ,b))
