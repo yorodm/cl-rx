@@ -59,10 +59,12 @@ SUB behaves properly"
 
 ;; public interface
 
-(defmacro make-subscriber (&key on-next on-completed on-error)
-          "Creates a new subscriber given at least one of it functions. The parameters are:
-ON-NEXT: Notifies the SUBSCRIBER of new events in the OBSERVABLE. Takes the item as parameter.
-ON-ERROR: Notifies the SUBSCRIBER of errors in the OBSERVABLE. Takes the error as parameter.
+(defun make-subscriber (&key (on-next #'noop)
+                             (on-completed #'noop)
+                             (on-error #'noop))
+          "Creates a new subscriber given at least one of it functions. The arguments are:
+ON-NEXT: Notifies the SUBSCRIBER of new events in the OBSERVABLE. Takes the item as an argument.
+ON-ERROR: Notifies the SUBSCRIBER of errors in the OBSERVABLE. Takes the error as an argument.
 ON-COMPLETED: Notifies the SUBSCRIBER that the OBSERVABLE will no longer send events it's way.
 
 This function is the only safe way to create a subscriber so do not call make-instance."
