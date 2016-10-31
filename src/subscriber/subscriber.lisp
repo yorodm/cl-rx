@@ -30,7 +30,7 @@
 
 (defmethod make-load-form ((self safe-subscriber) &optional env)
   (make-load-form-saving-slots self
-                               :slot-names '(inner on-next on-error on-completed)))
+                               :slot-names '(state inner on-next on-error on-completed)))
 
 (defun safe-subscriber (inner)
   ;; this is basically a state machine
