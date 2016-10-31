@@ -60,4 +60,3 @@
           (setf (fill-pointer seq) (read-sequence seq stream))
           seq)))
   :in-order-to ((test-op (test-op cl-rx-test))))
-/
