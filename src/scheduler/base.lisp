@@ -24,8 +24,14 @@
 (defgeneric time-delta (scheduler seconds)
   (:documentation "Calculates time deltas according to SCHEDULER"))
 
-(defmacro with-current-scheduler (scheduler &body body)
-  `(let ((,scheduler *current-scheduler*))
+(defmacro with-current-scheduler ((var) &body body)
+  "Executes BODY with VAR bound to the current scheduler"
+  `(let ((,var *current-scheduler*))
+     ,@body))
+
+(defmacro with-scheduler ((var instance) &body body)
+  "Executes BODY with VAR bound to the scheduler specified by INSTANCE"
+  `(let ((,var ,instance))
      ,@body))
 
 (defmethod time-now ((scheduler scheduler))
