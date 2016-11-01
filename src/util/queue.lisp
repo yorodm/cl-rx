@@ -92,4 +92,4 @@
 (defun top (heap)
   "Returns the data of the first element in the queue"
   (when (> (size heap) 0)
-  (item-data heap 0)))
+  (elt (elements heap) 0)))
