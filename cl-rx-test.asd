@@ -14,8 +14,12 @@
   :depends-on (:cl-rx
                :prove)
   :components ((:module "t"
+                :serial t
                 :components
-                ((:test-file "cl-rx"))))
+                ((:test-file "base")
+                 (:test-file "pqueue")
+                 (:test-file "schedulers")
+                 (:test-file "operators-from"))))
   :description "Test system for cl-rx"
 
   :defsystem-depends-on (:prove-asdf)
