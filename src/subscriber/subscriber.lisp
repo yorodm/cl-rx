@@ -2,6 +2,7 @@
 
 (defun noop (&rest others)
   "Null operation"
+  (declare (ignore others))
   (values))
 
 (defclass subscriber ()
@@ -26,11 +27,13 @@
 
 (defmethod make-load-form ((self subscriber) &optional env)
   (make-load-form-saving-slots self
-                               :slot-names '(on-next on-error on-completed)))
+                               :slot-names '(on-next on-error on-completed)
+                               :environment env))
 
 (defmethod make-load-form ((self safe-subscriber) &optional env)
   (make-load-form-saving-slots self
-                               :slot-names '(state inner on-next on-error on-completed)))
+                               :slot-names '(state inner on-next on-error on-completed)
+                               :environment env))
 
 (defun safe-subscriber (wrapped)
   ;; this is basically a state machine
