@@ -1,5 +1,6 @@
 (in-package :cl-rx-test)
 
+(plan 1)
 (subtest "Testing the priority queue"
     (let ((queue (make-instance 'pqueue)))
       (subtest "Testing enqueue"
@@ -21,3 +22,4 @@
         (is (dequeue queue) '(14 . "Data for 14"))
         (is (dequeue queue) '(15 . "Data for 15"))
         (is (dequeue queue) '(115 . "Data for 115")))))
+(finalize)
