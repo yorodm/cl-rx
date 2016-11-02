@@ -1,9 +1,10 @@
 (in-package :cl-rx-test)
 
+
 ;; Testing the schedulers
 (setf *current-scheduler* (create-scheduler 'immediate-scheduler))
-(plan 2)/
-(subtest "Testing the IMMEDIATE-SCHEDULER"
+(plan 2)
+(subtest "Testing scheduling in the IMMEDIATE-SCHEDULER"
   (let ((*special-var* (list 5)))
   (with-current-scheduler (scheduler)
     (schedule scheduler #'(lambda ()
@@ -11,7 +12,7 @@
   (is *special-var* (list 20 5))))
 
 (setf *current-scheduler* (create-scheduler 'trampoline-scheduler))
-(subtest "Testing the TRAMPOLINE-SCHEDULER"
+(subtest "Testing scheduling in the TRAMPOLINE-SCHEDULER"
   (let ((*special-var* (list 5)))
     (with-current-scheduler (scheduler)
       (schedule  scheduler #'(lambda ()
