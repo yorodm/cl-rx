@@ -5,9 +5,13 @@
   (:export #:pqueue
            #:enqueue
            #:dequeue
-           #:top))
+           #:top
+           #:size
+           #:item-priority
+           #:item-data))
 
 (defpackage cl-rx.util
-  (:use :cl))
+  (:use :cl)
+  (:export #:->))
 
 (in-package :cl-rx.util)
