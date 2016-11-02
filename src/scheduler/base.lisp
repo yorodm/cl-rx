@@ -4,13 +4,13 @@
   ()
   (:documentation "Base class for all schedulers"))
 
-(defvar *current-scheduler* nil "The current scheduler")
-
-
-(defun create-scheduler (name)
+(defun create-scheduler (name) ;; this will soon be a macro
   "Factory function, creates a new scheduler given its NAME as a symbol."
   (when (symbolp name)
-  (make-instance name)))
+    (make-instance name)))
+
+(defvar *current-scheduler* nil "The current scheduler")
+;; (load-time-value (create-scheduler 'trampoline-scheduler)) "The current scheduler")
 
 (defgeneric schedule (scheduler fn)
   (:documentation "Schedules a new FN to be executed by the SCHEDULER"))
@@ -29,15 +29,12 @@
   `(let ((,var *current-scheduler*))
      ,@body))
 
-(defmacro with-scheduler ((var instance) &body body)
-  "Executes BODY with VAR bound to the scheduler specified by INSTANCE"
-  `(let ((,var ,instance))
-     ,@body))
-
 (defmethod time-now ((scheduler scheduler))
+  (declare (ignore scheduler))
   (warn "You should implement this method or inherit from someone who does")
   (values))
 
 (defmethod time-delta ((scheduler scheduler) seconds)
+    (declare (ignore scheduler))
   (warn "You should implement this method or inherit from someone who does")
   (values))
