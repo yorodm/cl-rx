@@ -8,13 +8,11 @@
 (defmethod observable-from ((source list))
   (labels ((from-list (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
-                        (unwind-protect (progn ;; maybe handler-case?
-                                          (loop for item in source
-                                             do (subscriber-next subs item))
-                                          (subscriber-completed subs))
-                          ;; Call on-error as cleanup.
-                          ;; see CL-RX.SUBSCRIBER:SAFE-SUBSCRIBER
-                          (subscriber-error subs))))
+                      (handler-case (progn ;; maybe handler-case?
+                                        (loop for item in source
+                                           do (subscriber-next subs item))
+                                        (subscriber-completed subs))
+                        (error (cnd) (subscriber-error subs cnd)))))
                (with-current-scheduler (scheduler)
                  (schedule scheduler #'producer)))))
     (make-observable #'from-list)))
