@@ -30,16 +30,33 @@
                  (schedule scheduler #'producer)))))
     (make-observable #'from-list)))
 
-;; This would be a lot easier if the whole gray streams thingy had made it to
-;; the standard. I'm not going to use trivial-gray-streams just for this.
-;;
+
+;; Since gray streams are not part of the standard we have to provide to
+;; different methods. One will handle the whole "standard stream types"
+;; situation like STRING-STREAM and TWO-WAY-STREAMS. The other will handle gray
+;; streams since they're in almost every implementation anyway.
+
 (defmacro read-stream (source eof-error-p &optional eof-value)
-  "Read from a stream"
+  "Reads from a stream"
   `(if (subtypep 'character (stream-element-type ,source))
       (read-char ,source ,eof-error-p ,eof-value)
       (read-byte ,source ,eof-error-p ,eof-value)))
 
 (defmethod observable-from ((source stream))
+  (assert (input-stream-p source))
+  (labels ((from-stream (subs) ;; this is the subscribe function
+             (flet ((producer() ;; this will be called by the scheduler
+                      (handler-case (progn
+                                        (loop for byte = (read-stream source nil)
+                                           while byte
+                                           do (subscriber-next subs byte))
+                                        (subscriber-completed subs))
+                        (error (cnd) (subscriber-error subs cnd)))))
+               (with-current-scheduler (scheduler)
+                 (schedule scheduler #'producer)))))
+    (make-observable #'from-stream)))
+
+(defmethod observable-from ((source fundamental-input-stream))
   (labels ((from-stream (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
                       (handler-case (progn

@@ -7,6 +7,10 @@
    #:observable-from
    #:observable-subscribe
    #:observable-create)
+  (:import-from :trivial-gray-streams
+               :fundamental-input-stream
+               :fundamental-binary-input-stream
+               :fundamental-character-input-stream)
   (:import-from :cl-rx.scheduler
                 :schedule
                 :schedule-relative
