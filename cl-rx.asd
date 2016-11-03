@@ -18,7 +18,7 @@
   :version "0.1"
   :author "Yoandy Rodriguez Martinez"
   :license "MIT"
-  :depends-on ( :alexandria :bordeaux-threads)
+  :depends-on ( :alexandria :bordeaux-threads :trivial-gray-streams)
   :serial t
   :components ((:module "src"
                         :serial t
