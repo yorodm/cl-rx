@@ -35,6 +35,6 @@
   (values))
 
 (defmethod time-delta ((scheduler scheduler) seconds)
-    (declare (ignore scheduler))
+    (declare (ignore scheduler seconds))
   (warn "You should implement this method or inherit from someone who does")
   (values))
