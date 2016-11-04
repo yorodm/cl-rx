@@ -6,7 +6,7 @@
 ;; don't know if it will be thread safe. Maybe I can set a lot of locks but that
 ;; might have an impact in performance.
 (defmethod observable-from ((source list))
-  (labels ((from-list (subs) ;; this is the subscribe function
+  (flet ((from-list (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
                       (handler-case (progn ;; maybe handler-case?
                                         (loop for item in source
@@ -19,7 +19,7 @@
 
 ;; Yeah, different words in loop so...
 (defmethod observable-from ((source array))
-  (labels ((from-list (subs) ;; this is the subscribe function
+  (flet ((from-list (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
                       (handler-case (progn
                                         (loop for item across source
@@ -44,7 +44,7 @@
 
 (defmethod observable-from ((source stream))
   (assert (input-stream-p source))
-  (labels ((from-stream (subs) ;; this is the subscribe function
+  (flet ((from-stream (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
                       (handler-case (progn
                                         (loop for byte = (read-stream source nil)
@@ -57,7 +57,7 @@
     (make-observable #'from-stream)))
 
 (defmethod observable-from ((source fundamental-input-stream))
-  (labels ((from-stream (subs) ;; this is the subscribe function
+  (flet ((from-stream (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
                       (handler-case (progn
                                         (loop for byte = (read-stream source nil)
