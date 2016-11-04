@@ -6,7 +6,9 @@
    #:observable
    #:observable-from
    #:observable-subscribe
-   #:observable-create)
+   #:observable-create
+   #:observable-find
+   #:observable-take)
   (:import-from :trivial-gray-streams
                :fundamental-input-stream
                :fundamental-binary-input-stream
