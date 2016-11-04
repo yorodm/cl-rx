@@ -38,7 +38,7 @@
                                                     :on-completed #'on-completed))))))
     (make-observable #'subscribe-fn)))
 
-(defmethod observable-first (observ observable)
+(defmethod observable-first ((observ observable))
   (observable-take observ 1))
 
 (defmethod observable-all ((observ observable) (predicate function))
