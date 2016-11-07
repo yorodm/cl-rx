@@ -1,12 +1,13 @@
 (in-package :cl-rx-test)
 
 
-(plan 2)
+(plan 3)
 (setf *current-scheduler* (create-scheduler 'immediate-scheduler))
 (defparameter *source-list* (list 1 2 3 4 5 6 7 8 9))
-(subtest "Testing the find operator"
+(defparameter *source-list2* (list 2 4 6 8 10 12 14))
+(subtest "Testing the FILTER operator"
   (let ((observ (-> (observable-from *source-list*)
-                  (observable-find #'oddp)))
+                  (observable-filter #'oddp)))
         (*special-var* nil))
     (observable-subscribe observ (lambda (x) (push x *special-var*)))
     (is *special-var* '(9 7 5 3 1))))

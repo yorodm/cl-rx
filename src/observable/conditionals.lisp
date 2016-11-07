@@ -1,6 +1,6 @@
 (in-package :cl-rx.observable)
 
-(defmethod observable-find ((observ observable) (predicate function))
+(defmethod observable-filter ((observ observable) (predicate function))
   (flet
       ((subscribe-fn (subs)
          (flet

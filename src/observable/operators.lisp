@@ -5,7 +5,7 @@
 (defgeneric observable-from (source)
   (:documentation "Creates a new observable from the given source"))
 
-(defgeneric observable-find (observ predicate)
+(defgeneric observable-filter (observ predicate)
   (:documentation "Creates an observable sequence that will emit all the
   elements from OBSERV for which PREDICATE returns true"))
 

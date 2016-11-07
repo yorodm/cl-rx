@@ -7,6 +7,7 @@
    #:observable-from
    #:observable-subscribe
    #:observable-create
+   #:observable-filter
    #:observable-find
    #:observable-take)
   (:import-from :trivial-gray-streams
