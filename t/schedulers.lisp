@@ -2,7 +2,6 @@
 
 
 ;; Testing the schedulers
-(setf *current-scheduler* (create-scheduler 'immediate-scheduler))
 (plan 2)
 (subtest "Testing scheduling in the IMMEDIATE-SCHEDULER"
   (let ((*special-var* (list 5)))
@@ -18,4 +17,6 @@
       (schedule  scheduler #'(lambda ()
                                (push 20 *special-var*))))
     (is *special-var* (list 20 5))))
+;; Reset the scheduler
+(setf *current-scheduler* (create-scheduler 'immediate-scheduler))
 (finalize)

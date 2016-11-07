@@ -6,11 +6,6 @@
 
 ;; blah blah blah.
 (plan 3)
-(setf *current-scheduler* (create-scheduler 'immediate-scheduler))
-(defparameter *source-list* (list 1 2 3 4 5 6 7 8 9))
-(defparameter *source-stream* (make-string-input-stream "This is the data"))
-(defparameter *source-array* (make-array 5 :initial-contents '(1 2 3 4 5)))
-
 (subtest "Testing observable-from with a list"
   (let ((observ (observable-from *source-list*))
         (*special-var* nil))
