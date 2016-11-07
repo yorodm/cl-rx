@@ -20,7 +20,8 @@
                  (:test-file "pqueue")
                  (:test-file "schedulers")
                  (:test-file "operators-from")
-                 (:test-file "operators-filter"))))
+                 (:test-file "operators-filter")
+                 (:test-file "operators-transform"))))
   :description "Test system for cl-rx"
 
   :defsystem-depends-on (:prove-asdf)

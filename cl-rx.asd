@@ -45,7 +45,8 @@
                                               (:file "observable")
                                               (:file "operators")
                                               (:file "from")
-                                              (:file "conditionals")))
+                                              (:file "conditionals")
+                                              (:file "transform")))
                          (:file "package"))))
   :description "Reactive extensions for Common-Lisp"
   :long-description
