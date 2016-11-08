@@ -34,7 +34,7 @@
   (:documentation "Applies FN to each item in OBSERV, creating a new observable
   sequence with the results"))
 
-(defmacro protect-with((subs error-type) &body body)
+(defmacro protect-with((subscriber error-type) &body body)
   "A helper macro to write operators"
   `(handler-case
        (progn ,@body)
