@@ -4,6 +4,7 @@
   (:use :cl)
   (:export
    #:observable
+   #:observable-just
    #:observable-from
    #:observable-subscribe
    #:observable-create

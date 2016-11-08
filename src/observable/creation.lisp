@@ -68,3 +68,13 @@
                (with-current-scheduler (scheduler)
                  (schedule scheduler #'producer)))))
     (make-observable #'from-stream)))
+
+(defmethod observable-just ((source t))
+  (flet ((just (subs) ;; this is the subscribe function
+           (flet
+               ((producer () ;; this will be called by the scheduler
+                  (subscriber-next subs source)
+                  (subscriber-completed subs)))
+             (with-current-scheduler (scheduler)
+               (schedule scheduler #'producer)))))
+    (make-observable #'just)))

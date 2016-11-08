@@ -5,8 +5,13 @@
 ;; Why use generics instead of just functions? It makes it easier for everyone
 ;; to extend the behavior of the library. Also it enforces a contract between the library and the client. See `conditionals.lisp' for an example
 
+;; Creation
 (defgeneric observable-from (source)
   (:documentation "Creates a new observable from the given source"))
+
+(defgeneric observable-just (source)
+  (:documentation "Creates a new observable that emits the source as it's only
+  item"))
 
 ;; conditionals
 (defgeneric observable-filter (observ predicate)

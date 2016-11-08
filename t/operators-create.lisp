@@ -5,7 +5,7 @@
 
 
 ;; blah blah blah.
-(plan 3)
+(plan 4)
 (subtest "Testing observable-from with a list"
   (let ((observ (observable-from *source-list*))
         (*special-var* nil))
@@ -25,4 +25,11 @@
                                    (declare (ignore x))
                                    (incf count-var)))
     (is count-var (length "This is the data"))))
+
+(subtest "Testing observable-just"
+  (let ((observ (observable-just *source-list*))
+        (*special-var* nil))
+    (observable-subscribe observ (lambda (x)
+                                   (setf *special-var* x)))
+    (is *special-var* *source-list*)))
 (finalize)
