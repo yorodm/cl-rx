@@ -33,3 +33,9 @@
 (defgeneric observable-map (observ fn)
   (:documentation "Applies FN to each item in OBSERV, creating a new observable
   sequence with the results"))
+
+(defmacro protect-with((subs error-type) &body body)
+  "A helper macro to write operators"
+  `(handler-case
+       (progn ,@body)
+    (,error-type (cnd) (subscriber-error ,subs cnd))))

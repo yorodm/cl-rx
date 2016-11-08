@@ -7,12 +7,11 @@
 ;; might have an impact in performance.
 (defmethod observable-from ((source list))
   (flet ((from-list (subs) ;; this is the subscribe function
-             (flet ((producer() ;; this will be called by the scheduler
-                      (handler-case (progn ;; maybe handler-case?
-                                        (loop for item in source
-                                           do (subscriber-next subs item))
-                                        (subscriber-completed subs))
-                        (error (cnd) (subscriber-error subs cnd)))))
+           (flet ((producer () ;; this will be called by the scheduler
+                    (protect-with (subs error)
+                             (loop for item in source
+                                do (subscriber-next subs item))
+                             (subscriber-completed subs))))
                (with-current-scheduler (scheduler)
                  (schedule scheduler #'producer)))))
     (make-observable #'from-list)))
@@ -20,13 +19,12 @@
 ;; Yeah, different words in loop so...
 (defmethod observable-from ((source array))
   (flet ((from-list (subs) ;; this is the subscribe function
-             (flet ((producer() ;; this will be called by the scheduler
-                      (handler-case (progn
+           (flet ((producer () ;; this will be called by the scheduler
+                    (protect-with (subs error)
                                         (loop for item across source
                                            do (subscriber-next subs item))
-                                        (subscriber-completed subs))
-                        (error (cnd) (subscriber-error subs cnd)))))
-               (with-current-scheduler (scheduler)
+                                        (subscriber-completed subs))))
+               (with-current-scheduler (scheduler)/
                  (schedule scheduler #'producer)))))
     (make-observable #'from-list)))
 
@@ -46,12 +44,11 @@
   (assert (input-stream-p source))
   (flet ((from-stream (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
-                      (handler-case (progn
-                                        (loop for byte = (read-stream source nil)
-                                           while byte
-                                           do (subscriber-next subs byte))
-                                        (subscriber-completed subs))
-                        (error (cnd) (subscriber-error subs cnd)))))
+                      (protect-with (subs error)
+                                    (loop for byte = (read-stream source nil)
+                                       while byte
+                                       do (subscriber-next subs byte))
+                                    (subscriber-completed subs))))
                (with-current-scheduler (scheduler)
                  (schedule scheduler #'producer)))))
     (make-observable #'from-stream)))
@@ -59,12 +56,11 @@
 (defmethod observable-from ((source fundamental-input-stream))
   (flet ((from-stream (subs) ;; this is the subscribe function
              (flet ((producer() ;; this will be called by the scheduler
-                      (handler-case (progn
-                                        (loop for byte = (read-stream source nil)
-                                           while byte
-                                           do (subscriber-next subs byte))
-                                        (subscriber-completed subs))
-                        (error (cnd) (subscriber-error subs cnd)))))
+                      (protect-with (subs error)
+                                    (loop for byte = (read-stream source nil)
+                                       while byte
+                                       do (subscriber-next subs byte))
+                                    (subscriber-completed subs))))
                (with-current-scheduler (scheduler)
                  (schedule scheduler #'producer)))))
     (make-observable #'from-stream)))
@@ -73,8 +69,9 @@
   (flet ((just (subs) ;; this is the subscribe function
            (flet
                ((producer () ;; this will be called by the scheduler
+                  (protect-with (subs error)
                   (subscriber-next subs source)
-                  (subscriber-completed subs)))
+                  (subscriber-completed subs))))
              (with-current-scheduler (scheduler)
                (schedule scheduler #'producer)))))
     (make-observable #'just)))
