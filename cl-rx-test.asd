@@ -19,7 +19,7 @@
                 ((:test-file "base")
                  (:test-file "pqueue")
                  (:test-file "schedulers")
-                 (:test-file "operators-from")
+                 (:test-file "operators-create")
                  (:test-file "operators-filter")
                  (:test-file "operators-transform"))))
   :description "Test system for cl-rx"
