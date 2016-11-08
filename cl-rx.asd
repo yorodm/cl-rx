@@ -44,7 +44,7 @@
                                   :components((:file "package")
                                               (:file "observable")
                                               (:file "operators")
-                                              (:file "from")
+                                              (:file "creation")
                                               (:file "conditionals")
                                               (:file "transform")))
                          (:file "package"))))
