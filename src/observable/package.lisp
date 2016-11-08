@@ -10,7 +10,8 @@
    #:observable-filter
    #:observable-take
    #:observable-find
-   #:observable-all)
+   #:observable-all
+   #:observable-map)
   (:import-from :trivial-gray-streams
                :fundamental-input-stream
                :fundamental-binary-input-stream
