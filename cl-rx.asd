@@ -27,13 +27,15 @@
                                   :serial t
                                   :components((:file "package")
                                               (:file "macros")
-                                              (:file "queue")))
+                                              (:file "queue")
+                                              (:file "pool")))
                          (:module "scheduler"
                                   :serial t
                                   :components((:file "package")
                                               (:file "base")
                                               (:file "immediate")
-                                              (:file "trampoline")))
+                                              (:file "trampoline")
+                                              (:file "new-thread")))
                          (:module "subscriber"
                                   :serial t
                                   :components ((:file "package")
