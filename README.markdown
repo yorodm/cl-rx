@@ -1,4 +1,4 @@
-# Cl-Rx - Reactive extensions for Common-Lisp
+# cl-rx - Reactive extensions for Common-Lisp
 
 ## Usage
 
