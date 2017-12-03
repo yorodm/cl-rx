@@ -28,7 +28,7 @@
 (defgeneric time-delta (scheduler seconds)
   (:documentation "Calculates time deltas according to SCHEDULER"))
 
-(defmethod scheduler-create (scheduler scheduler)
+(defmethod scheduler-create ((scheduler scheduler))
   scheduler)
 
 (defmacro with-current-scheduler ((var) &body body)
