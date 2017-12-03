@@ -3,7 +3,7 @@
 (defclass trampoline-scheduler (scheduler)
   ((queue :initform (make-instance 'pqueue) :accessor queue)
    (lock :initform (bt:make-lock) :accessor lock))
-  (:documentation "Queues the work in the/ current thread"))
+  (:documentation "Queues the work in the current thread"))
 
 (defmethod time-delta ((sched trampoline-scheduler) seconds)
   (let ((units (* seconds internal-time-units-per-second)))
