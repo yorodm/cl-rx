@@ -2,13 +2,12 @@
 
 ;; Let's make this kind of TRAMPOLINE-SCHEDULER
 (defclass new-thread-scheduler (trampoline-scheduler)
-  ((ready-list
+  ((ready-list :accessor ready-list
     ;; I don't want to risk sharing structure so.. no lists
-    :initform (make-array 15 :fill-pointer 0 :adjustable t)
-    :accessor ready-list)
+    :initform (make-array 15 :fill-pointer 0 :adjustable t))
    ;; BT notification system
    (cvar :initform (bt:make-condition-variable))
-   (thread :initform nil :accesor thread))
+   (thread :initform nil :accessor thread))
   (:documentation "Queues the work in a new thread"))
 
 
