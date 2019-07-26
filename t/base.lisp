@@ -6,6 +6,7 @@
         :prove))
 (in-package :cl-rx-test)
 
+(setq prove:*default-reporter* :fiveam)
 ;; Test all other things
 (setf *current-scheduler* (create-scheduler 'immediate-scheduler))
 (defparameter *source-list* (list 1 2 3 4 5 6 7 8 9))

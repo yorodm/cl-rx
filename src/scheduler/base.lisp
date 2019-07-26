@@ -7,10 +7,14 @@
 (defun create-scheduler (name) ;; this will soon be a macro
   "Factory function, creates a new scheduler given its NAME as a symbol."
   (when (symbolp name)
-    (make-instance name)))
+    (let ((sched (make-instance name)))
+      (scheduler-create sched))))
 
 (defvar *current-scheduler* nil "The current scheduler")
 ;; (load-time-value (create-scheduler 'trampoline-scheduler)) "The current scheduler")
+
+(defgeneric scheduler-create (scheduler)
+  (:documentation "Generic method to  initialize schedulers"))
 
 (defgeneric schedule (scheduler fn)
   (:documentation "Schedules a new FN to be executed by the SCHEDULER"))
@@ -23,6 +27,9 @@
 
 (defgeneric time-delta (scheduler seconds)
   (:documentation "Calculates time deltas according to SCHEDULER"))
+
+(defmethod scheduler-create ((scheduler scheduler))
+  scheduler)
 
 (defmacro with-current-scheduler ((var) &body body)
   "Executes BODY with VAR bound to the current scheduler"
