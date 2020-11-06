@@ -38,4 +38,4 @@
   "A helper macro to write operators"
   `(handler-case
        (progn ,@body)
-    (,error-type (cnd) (subscriber-error ,subs cnd))))
+    (,error-type (cnd) (subscriber-error ,subscriber cnd))))
